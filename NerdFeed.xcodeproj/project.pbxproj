@@ -19,6 +19,7 @@
 		CB997CB3184BE458006824AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB997C9B184BE458006824AE /* UIKit.framework */; };
 		CB997CBB184BE458006824AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB997CB9184BE458006824AE /* InfoPlist.strings */; };
 		CB997CBD184BE458006824AE /* NerdFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CBC184BE458006824AE /* NerdFeedTests.m */; };
+		CB997CC8184BEB25006824AE /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CC7184BEB25006824AE /* ListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		CB997CB8184BE458006824AE /* NerdFeedTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NerdFeedTests-Info.plist"; sourceTree = "<group>"; };
 		CB997CBA184BE458006824AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB997CBC184BE458006824AE /* NerdFeedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NerdFeedTests.m; sourceTree = "<group>"; };
+		CB997CC6184BEB25006824AE /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		CB997CC7184BEB25006824AE /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
+				CB997CC6184BEB25006824AE /* ListViewController.h */,
+				CB997CC7184BEB25006824AE /* ListViewController.m */,
 				CB997C9D184BE458006824AE /* NerdFeed */,
 				CB997CB6184BE458006824AE /* NerdFeedTests */,
 				CB997C96184BE458006824AE /* Frameworks */,
@@ -241,6 +246,7 @@
 			files = (
 				CB997CA8184BE458006824AE /* AppDelegate.m in Sources */,
 				CB997CA4184BE458006824AE /* main.m in Sources */,
+				CB997CC8184BEB25006824AE /* ListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +371,7 @@
 				GCC_PREFIX_HEADER = "NerdFeed/NerdFeed-Prefix.pch";
 				INFOPLIST_FILE = "NerdFeed/NerdFeed-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -378,6 +385,7 @@
 				GCC_PREFIX_HEADER = "NerdFeed/NerdFeed-Prefix.pch";
 				INFOPLIST_FILE = "NerdFeed/NerdFeed-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
