@@ -10,7 +10,7 @@
 
 @class RSSChannel;
 
-@interface ListViewController : UITableViewController
+@interface ListViewController : UITableViewController <NSXMLParserDelegate>
 {
     NSURLConnection *connection;
     NSMutableData *xmlData;

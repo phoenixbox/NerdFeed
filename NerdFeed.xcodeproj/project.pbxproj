@@ -21,6 +21,7 @@
 		CB997CBD184BE458006824AE /* NerdFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CBC184BE458006824AE /* NerdFeedTests.m */; };
 		CB997CC8184BEB25006824AE /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CC7184BEB25006824AE /* ListViewController.m */; };
 		CB997CCC184C0220006824AE /* RSSChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCB184C0220006824AE /* RSSChannel.m */; };
+		CB997CCF184C3D10006824AE /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCE184C3D10006824AE /* RSSItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		CB997CC7184BEB25006824AE /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		CB997CCA184C0220006824AE /* RSSChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannel.h; sourceTree = "<group>"; };
 		CB997CCB184C0220006824AE /* RSSChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannel.m; sourceTree = "<group>"; };
+		CB997CCD184C3D10006824AE /* RSSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItem.h; sourceTree = "<group>"; };
+		CB997CCE184C3D10006824AE /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,8 @@
 				CB997CC7184BEB25006824AE /* ListViewController.m */,
 				CB997CCA184C0220006824AE /* RSSChannel.h */,
 				CB997CCB184C0220006824AE /* RSSChannel.m */,
+				CB997CCD184C3D10006824AE /* RSSItem.h */,
+				CB997CCE184C3D10006824AE /* RSSItem.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB997CCC184C0220006824AE /* RSSChannel.m in Sources */,
+				CB997CCF184C3D10006824AE /* RSSItem.m in Sources */,
 				CB997CA8184BE458006824AE /* AppDelegate.m in Sources */,
 				CB997CA4184BE458006824AE /* main.m in Sources */,
 				CB997CC8184BEB25006824AE /* ListViewController.m in Sources */,

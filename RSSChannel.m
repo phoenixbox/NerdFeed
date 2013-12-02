@@ -7,6 +7,7 @@
 //
 
 #import "RSSChannel.h"
+#import "RSSItem.h"
 
 @implementation RSSChannel
 @synthesize items, title, infoString, parentParserDelegate;
@@ -36,6 +37,18 @@
     } else if ([elementName isEqual:@"description"]){
         currentString = [[NSMutableString alloc]init];
         [self setInfoString:currentString];
+    } else if ([elementName isEqual:@"item"]){
+        //When we find an item element - create an instance of RSSItem
+        RSSItem *entry = [[RSSItem alloc] init];
+        
+        // Set the paren as ourselves so we can regain control of the parser
+        [entry setParentParserDelegate:self];
+        
+        // Turn the parser to the RSSItem
+        [parser setDelegate:entry];
+        
+        // Add the item to our array and release hold on it
+        [items addObject:entry];
     }
 }
 
@@ -43,7 +56,10 @@
 {
     [currentString appendString:str];
 }
--(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+-(void)parser:(NSXMLParser *)parser
+didEndElement:(NSString *)elementName
+ namespaceURI:(NSString *)namespaceURI
+qualifiedName:(NSString *)qName
 {
     // If the parser was already in an element that we were collecting a string for - this would release hold of it and the permanent ivar keeps ownership
     // If we are not parsing such an element, currentString is nil already
