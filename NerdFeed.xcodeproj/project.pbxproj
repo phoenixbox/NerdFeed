@@ -20,6 +20,7 @@
 		CB997CBB184BE458006824AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB997CB9184BE458006824AE /* InfoPlist.strings */; };
 		CB997CBD184BE458006824AE /* NerdFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CBC184BE458006824AE /* NerdFeedTests.m */; };
 		CB997CC8184BEB25006824AE /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CC7184BEB25006824AE /* ListViewController.m */; };
+		CB997CCC184C0220006824AE /* RSSChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCB184C0220006824AE /* RSSChannel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		CB997CBC184BE458006824AE /* NerdFeedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NerdFeedTests.m; sourceTree = "<group>"; };
 		CB997CC6184BEB25006824AE /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		CB997CC7184BEB25006824AE /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		CB997CCA184C0220006824AE /* RSSChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannel.h; sourceTree = "<group>"; };
+		CB997CCB184C0220006824AE /* RSSChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +83,7 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
-				CB997CC6184BEB25006824AE /* ListViewController.h */,
-				CB997CC7184BEB25006824AE /* ListViewController.m */,
+				CB997CC9184BFC71006824AE /* Controllers */,
 				CB997C9D184BE458006824AE /* NerdFeed */,
 				CB997CB6184BE458006824AE /* NerdFeedTests */,
 				CB997C96184BE458006824AE /* Frameworks */,
@@ -147,6 +149,17 @@
 				CB997CB9184BE458006824AE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB997CC9184BFC71006824AE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CB997CC6184BEB25006824AE /* ListViewController.h */,
+				CB997CC7184BEB25006824AE /* ListViewController.m */,
+				CB997CCA184C0220006824AE /* RSSChannel.h */,
+				CB997CCB184C0220006824AE /* RSSChannel.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB997CCC184C0220006824AE /* RSSChannel.m in Sources */,
 				CB997CA8184BE458006824AE /* AppDelegate.m in Sources */,
 				CB997CA4184BE458006824AE /* main.m in Sources */,
 				CB997CC8184BEB25006824AE /* ListViewController.m in Sources */,
@@ -451,6 +465,7 @@
 				CB997CC2184BE458006824AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB997CC3184BE458006824AE /* Build configuration list for PBXNativeTarget "NerdFeedTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +474,7 @@
 				CB997CC5184BE458006824AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

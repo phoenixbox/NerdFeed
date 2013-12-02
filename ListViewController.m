@@ -7,6 +7,7 @@
 //
 
 #import "ListViewController.h"
+#import "RSSChannel.h"
 
 @implementation ListViewController
 
@@ -58,9 +59,41 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)conn
 {
-    NSString *xmlCheck = [[NSString alloc]initWithData:xmlData encoding:NSUTF8StringEncoding];
-    NSLog(@"xml check is this value = %@", xmlCheck);
+    // Create a parser object with the data
+    NSXMLParser *parser = [[NSXMLParser alloc]initWithData:xmlData];
+    
+    // Give it a delegate
+    [parser setDelegate:self];
+    
+    // Start parsing
+    [parser parse];
+    
+    // Release the xmlData
+    xmlData = nil;
+    
+    // Release the connection
+    connection = nil;
+    
+    // Reload the table
+    [[self tableView]reloadData];
+    NSLog(@"%@\n%@\n%@\n", channel, [channel title], [channel infoString]);
 }
+
+-(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    NSLog(@"%@ found a %@ element", self, elementName);
+    if([elementName isEqual:@"channel"]){
+        // If the parser finds a channel - create and store it in the channel ivar
+        channel = [[RSSChannel alloc]init];
+        
+        // Give the channel a pointer back to ourselves later
+        [channel setParentParserDelegate:self];
+        
+        // Set the parser's delegate to the channel object
+        [parser setDelegate:channel];
+    }
+}
+
 -(void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error
 {
     // Release the connection object
