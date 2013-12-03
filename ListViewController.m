@@ -52,7 +52,7 @@ didStartElement:(NSString *)elementName
 {
     // Create a parser object with the data
     NSXMLParser *parser = [[NSXMLParser alloc]initWithData:xmlData];
-    
+     
     // Give it a delegate
     [parser setDelegate:self];
     
@@ -114,7 +114,7 @@ didStartElement:(NSString *)elementName
     // Construct a string URL to request data - concatenate strings over multiple lines
     NSURL *url = [NSURL URLWithString:
                   @"http://forums.bignerdranch.com/smartfeed.php?"
-                  @"limit=1_DAY&sort_by=standard&feed_type=RSS2.0&feed_style=COMPACT"];
+                  @"limit=7_DAY&sort_by=standard&feed_type=RSS2.0&feed_style=COMPACT"];
     // Or if want Apple's hot news feed
     // NSURL *url = [NSURL URLWithString:@"http://www.apple.com/pr/feeds/pr.rss"];
     
