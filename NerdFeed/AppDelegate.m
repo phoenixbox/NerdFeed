@@ -25,6 +25,29 @@
     
     [[self window]setRootViewController:masterNav];
     
+    // Check if device is an iPad
+    if([[UIDevice currentDevice] userInterfaceIdiom]==UIUserInterfaceIdiomPad){
+        
+        // webViewController has to be in a navigation controller
+        UINavigationController *detailNav = [[UINavigationController alloc]initWithRootViewController:wvc];
+
+        // Remember array declarations end with nil
+        NSArray *vcs = [NSArray arrayWithObjects:masterNav, detailNav, nil];
+        
+        UISplitViewController *svc = [[UISplitViewController alloc]init];
+        
+        // Set the delegate of the split view controller to the detail vc
+        [svc setDelegate:wvc];
+        
+        [svc setViewControllers:vcs];
+        
+        // Set the root view controller of the window to the split view controller
+        [[self window] setRootViewController:svc];
+    } else {
+        // If the device is not an ipad - add a single nav controller to the window
+        [[self window]setRootViewController:masterNav];
+    }
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

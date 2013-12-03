@@ -25,6 +25,10 @@
 {
     return (UIWebView *)[self view];
 }
-
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)io
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        return YES;
+    return io == UIInterfaceOrientationLandscapeLeft;
+}
 @end

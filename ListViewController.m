@@ -113,8 +113,10 @@ didStartElement:(NSString *)elementName
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Push the webViewController onto the navigation stack - auto creates the webViewController the first time through
-    [[self navigationController]pushViewController:webViewController animated:YES];
+    if(![self splitViewController]){
+        // Push the webViewController onto the navigation stack - auto creates the webViewController the first time through
+        [[self navigationController] pushViewController:webViewController animated:YES];
+    }
     
     // Grab the selected RSSItem from the channels items
     RSSItem *entry = [[channel items]objectAtIndex:[indexPath row]];
@@ -151,5 +153,11 @@ didStartElement:(NSString *)elementName
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)io
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        return YES;
+    return io == UIInterfaceOrientationLandscapeLeft;
 }
 @end
