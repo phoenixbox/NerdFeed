@@ -9,8 +9,11 @@
 #import "ListViewController.h"
 #import "RSSChannel.h"
 #import "RSSItem.h"
+#import "WSLog.h"
+#import "WebViewController.h"
 
 @implementation ListViewController
+@synthesize webViewController;
 -(id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -67,7 +70,7 @@ didStartElement:(NSString *)elementName
     
     // Reload the table
     [[self tableView]reloadData];
-    NSLog(@"%@\n%@\n%@\n", channel, [channel title], [channel infoString]);
+    WSLog(@"%@\n%@\n%@\n", channel, [channel title], [channel infoString]);
 }
 -(void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error
 {
@@ -88,6 +91,7 @@ didStartElement:(NSString *)elementName
     [av show];
 }
 
+// ! Table view data source methods !
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[channel items] count];
@@ -106,6 +110,28 @@ didStartElement:(NSString *)elementName
     [[cell textLabel] setText:[item title]];
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Push the webViewController onto the navigation stack - auto creates the webViewController the first time through
+    [[self navigationController]pushViewController:webViewController animated:YES];
+    
+    // Grab the selected RSSItem from the channels items
+    RSSItem *entry = [[channel items]objectAtIndex:[indexPath row]];
+    
+    // Construct the URL with the link string attribute of the item
+    NSURL *url = [NSURL URLWithString:[entry link]];
+    
+    // Create a NSURLRequest object with the URL
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
+    // Load the request into the web view
+    [[webViewController webView]loadRequest:req];
+    
+    // Set the title of the webViewController's navigation item
+    [[webViewController navigationItem]setTitle:[entry title]];
+}
+
 -(void)fetchEntries
 {
     // Create an empty container to put the response in - assign it to our instance variable

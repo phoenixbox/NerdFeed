@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WebViewController.h"
 
 @class RSSChannel;
 
@@ -17,7 +18,7 @@
     
     RSSChannel *channel;
 }
-
+@property (nonatomic, strong) WebViewController *webViewController;
 -(void)fetchEntries;
 
 @end
