@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB70A109184D92FF00579A61 /* WSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A108184D92FF00579A61 /* WSLog.m */; };
 		CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A10B184D93AC00579A61 /* WebViewController.m */; };
+		CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A12E184E415E00579A61 /* ChannelViewController.m */; };
 		CB997C98184BE458006824AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB997C97184BE458006824AE /* Foundation.framework */; };
 		CB997C9A184BE458006824AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB997C99184BE458006824AE /* CoreGraphics.framework */; };
 		CB997C9C184BE458006824AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB997C9B184BE458006824AE /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 		CB70A108184D92FF00579A61 /* WSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLog.m; sourceTree = "<group>"; };
 		CB70A10A184D93AC00579A61 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		CB70A10B184D93AC00579A61 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		CB70A12D184E415E00579A61 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
+		CB70A12E184E415E00579A61 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
 		CB997C94184BE458006824AE /* NerdFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NerdFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB997C97184BE458006824AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB997C99184BE458006824AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,10 +95,6 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
-				CB70A107184D92FF00579A61 /* WSLog.h */,
-				CB70A10A184D93AC00579A61 /* WebViewController.h */,
-				CB70A10B184D93AC00579A61 /* WebViewController.m */,
-				CB70A108184D92FF00579A61 /* WSLog.m */,
 				CB997CC9184BFC71006824AE /* Controllers */,
 				CB997C9D184BE458006824AE /* NerdFeed */,
 				CB997CB6184BE458006824AE /* NerdFeedTests */,
@@ -167,6 +166,12 @@
 		CB997CC9184BFC71006824AE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB70A12D184E415E00579A61 /* ChannelViewController.h */,
+				CB70A12E184E415E00579A61 /* ChannelViewController.m */,
+				CB70A107184D92FF00579A61 /* WSLog.h */,
+				CB70A10A184D93AC00579A61 /* WebViewController.h */,
+				CB70A10B184D93AC00579A61 /* WebViewController.m */,
+				CB70A108184D92FF00579A61 /* WSLog.m */,
 				CB997CC6184BEB25006824AE /* ListViewController.h */,
 				CB997CC7184BEB25006824AE /* ListViewController.m */,
 				CB997CCA184C0220006824AE /* RSSChannel.h */,
@@ -274,6 +279,7 @@
 			files = (
 				CB70A109184D92FF00579A61 /* WSLog.m in Sources */,
 				CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */,
+				CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */,
 				CB997CCC184C0220006824AE /* RSSChannel.m in Sources */,
 				CB997CCF184C3D10006824AE /* RSSItem.m in Sources */,
 				CB997CA8184BE458006824AE /* AppDelegate.m in Sources */,
