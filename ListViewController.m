@@ -12,9 +12,11 @@
 #import "WSLog.h"
 #import "WebViewController.h"
 #import "ChannelViewController.h"
+#import "BNRFeedStore.h"
 
 @implementation ListViewController
 @synthesize webViewController;
+
 -(id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -27,9 +29,24 @@
         
         [[self navigationItem] setRightBarButtonItem:bbi];
         
+        UISegmentedControl *rssTypeControl =
+        [[UISegmentedControl alloc] initWithItems:
+         [NSArray arrayWithObjects:@"FAQ's", @"Songs", nil]];
+        [rssTypeControl setSelectedSegmentIndex:0];
+        [rssTypeControl addTarget:self
+                           action:@selector(changeType:)
+                 forControlEvents:UIControlEventValueChanged];
+        [[self navigationItem] setTitleView:rssTypeControl];
+        
         [self fetchEntries];
     }
     return self;
+}
+
+- (void)changeType:(id)sender
+{
+    rssType = [sender selectedSegmentIndex];
+    [self fetchEntries];
 }
 
 - (void)showInfo:(id)sender
@@ -60,72 +77,6 @@
     [channelViewController listViewController:self handleObject:channel];
 }
 
--(void)parser:(NSXMLParser *)parser
-didStartElement:(NSString *)elementName
-   namespaceURI:(NSString *)namespaceURI
-  qualifiedName:(NSString *)qName
-     attributes:(NSDictionary *)attributeDict
-{
-    NSLog(@"%@ found a %@ element", self, elementName);
-    if([elementName isEqual:@"channel"]){
-        // If the parser finds a channel - create and store it in the channel ivar
-        channel = [[RSSChannel alloc] init];
-        
-        // Give the channel a pointer back to ourselves later
-        [channel setParentParserDelegate:self];
-        
-        // Set the parser's delegate to the channel object
-        [parser setDelegate:channel];
-    }
-}
-
-// Called successively as data is received
--(void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data
-{
-    // Add the piece of data to the data container instance variable
-    // The data order is always correct
-    [xmlData appendData:data];
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)conn
-{
-    // Create a parser object with the data
-    NSXMLParser *parser = [[NSXMLParser alloc]initWithData:xmlData];
-     
-    // Give it a delegate
-    [parser setDelegate:self];
-    
-    // Start parsing
-    [parser parse];
-    
-    // Release the xmlData
-    xmlData = nil;
-    
-    // Release the connection
-    connection = nil;
-    
-    // Reload the table
-    [[self tableView]reloadData];
-    WSLog(@"%@\n%@\n%@\n", channel, [channel title], [channel infoString]);
-}
--(void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error
-{
-    // Release the connection object
-    connection = nil;
-    
-    // Release the xmlData object
-    xmlData = nil;
-    
-    // Get the error description
-    NSString *errorString = [NSString stringWithFormat:@"Fetch Failed: %@", [error localizedDescription]];
-    
-    // Display the error in an AlertView
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                 message:errorString
-                                                delegate:nil
-                                       cancelButtonTitle:@"OK"otherButtonTitles:nil];
-    [av show];
-}
 
 // ! Table view data source methods !
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -182,23 +133,28 @@ didStartElement:(NSString *)elementName
 
 -(void)fetchEntries
 {
-    // Create an empty container to put the response in - assign it to our instance variable
-    xmlData = [[NSMutableData alloc]init];
+    void(^completionBlock)(RSSChannel *obj, NSError *err)= ^(RSSChannel *obj, NSError *err){
+        if(!err){
+            channel = obj;
+            [[self tableView]reloadData];
+        } else {
+            NSString *errorString = [NSString stringWithFormat:@"Fetch failed: %@", [err localizedDescription]];
+            
+            UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"Error"
+                                                        message:errorString
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+            [av show];
+        }
+    };
     
-    // Construct a string URL to request data - concatenate strings over multiple lines
-    NSURL *url = [NSURL URLWithString:
-                  @"http://forums.bignerdranch.com/smartfeed.php?"
-                  @"limit=7_DAY&sort_by=standard&feed_type=RSS2.0&feed_style=COMPACT"];
-    // Or if want Apple's hot news feed
-    // NSURL *url = [NSURL URLWithString:@"http://www.apple.com/pr/feeds/pr.rss"];
-    
-    //Convert the string URL to an NSURLRequest object
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    
-    // Create a connection that will make the request - asssign it to the connection instance variable
-    connection = [[NSURLConnection alloc] initWithRequest:req
-                                                 delegate:self
-                                         startImmediately:YES];
+    // Initiate the request based on RSSType
+    if(rssType == ListViewControllerRSSTypeBNR){
+        [[BNRFeedStore sharedStore] fetchRSSFeedWithCompletion:completionBlock];
+    } else if (rssType == ListViewControllerRSSTypeApple){
+        [[BNRFeedStore sharedStore] fetchTopSongs:20 withCompletion:completionBlock];
+    }
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)io
 {

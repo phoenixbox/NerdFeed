@@ -37,7 +37,7 @@
     } else if ([elementName isEqual:@"description"]){
         currentString = [[NSMutableString alloc]init];
         [self setInfoString:currentString];
-    } else if ([elementName isEqual:@"item"]){
+    } else if ([elementName isEqual:@"item"]||[elementName isEqual:@"entry"]){
         //When we find an item element - create an instance of RSSItem
         RSSItem *entry = [[RSSItem alloc] init];
         
