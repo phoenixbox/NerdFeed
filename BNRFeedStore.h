@@ -12,6 +12,8 @@
 
 @interface BNRFeedStore : NSObject
 
+@property (nonatomic, strong) NSDate *topSongsCacheDate;
+
 +(BNRFeedStore *)sharedStore;
 
 -(void)fetchTopSongs:(int)count withCompletion:(void(^)(RSSChannel *obj, NSError *err))block;

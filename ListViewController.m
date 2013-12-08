@@ -133,7 +133,18 @@
 
 -(void)fetchEntries
 {
+    // Target the segmented control in the title view
+    UIView *currentTitleView = [[self navigationItem] titleView];
+    
+    // Create an activity indicator and start it spinning in the nav bar
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [[self navigationItem] setTitleView:aiView];
+    [aiView startAnimating];
+    
+    
     void(^completionBlock)(RSSChannel *obj, NSError *err)= ^(RSSChannel *obj, NSError *err){
+        // After any request - replace the spinner with the segmented control
+        [[self navigationItem] setTitleView:currentTitleView];
         if(!err){
             channel = obj;
             [[self tableView]reloadData];
