@@ -42,31 +42,25 @@ static NSMutableArray *sharedConnectionList = nil;
 {
     [container appendData:data];
 }
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     id rootObject = nil;
-    // If there is a root object - then parse the data
-    if([self xmlRootObject]){
-        // Create the parser with the incoming data and let the root object parse its contents
-        NSXMLParser *parser = [[NSXMLParser alloc]initWithData:container];
+    if ([self xmlRootObject]) {
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:container];
         [parser setDelegate:[self xmlRootObject]];
         [parser parse];
-    } else if ([self jsonRootObject]){
-        // Turn the JSON into model objects
-        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:container
-                                                          options:0
-                                                            error:nil];
-        // Have the root json object construct itself from the basic model objects
-        [[self jsonRootObject] readFromJSONDictionary:d];
-        
-        rootObject = [self jsonRootObject];
+        rootObject = [self xmlRootObject]; } else if ([self jsonRootObject]) {
+            // Turn JSON data into basic model objects
+            NSDictionary *d = [NSJSONSerialization JSONObjectWithData:container
+                                                              options:0
+                                                                error:nil];
+            // Have the root object construct itself from basic model objects
+            [[self jsonRootObject] readFromJSONDictionary:d];
+            rootObject = [self jsonRootObject];
+        }
+    if ([self completionBlock]){
+        [self completionBlock](rootObject, nil);
     }
-    // Pass the root object to the completion block supplied by the controller
-    if([self completionBlock]){
-        [self completionBlock]([self xmlRootObject], nil);
-    }
-    
-    // Destroy the connection
     [sharedConnectionList removeObject:self];
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error

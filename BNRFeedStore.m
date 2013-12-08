@@ -50,7 +50,6 @@
 {
     // Prepare a request URL incl. controller argument passed over
     NSString *requestString = [NSString stringWithFormat:@"http://itunes.apple.com/us/rss/topsongs/limit=%d/json", count];
-    
     NSURL *url = [NSURL URLWithString:requestString];
     
     // Set the connection
@@ -58,6 +57,7 @@
     RSSChannel *channel = [[RSSChannel alloc]init];
     BNRConnection *connection = [[BNRConnection alloc]initWithRequest:req];
     [connection setCompletionBlock:block];
+    
     [connection setJsonRootObject:channel];
     
     [connection start];
