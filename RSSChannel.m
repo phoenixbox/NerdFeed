@@ -140,4 +140,25 @@ qualifiedName:(NSString *)qName
     }
     return self;
 }
+-(void)addItemsFromChannel:(RSSChannel *)otherChannel
+{
+    for (RSSItem *i in [otherChannel items]) {
+        // If self's items does not contain this item, add it
+        if (![[self items] containsObject:i])
+            [[self items] addObject:i];
+        }
+    
+    // Sort the array of items by publication date
+    [[self items] sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj2 publicationDate] compare:[obj1 publicationDate]];
+    }];
+}
+- (id)copyWithZone:(NSZone *)zone
+{
+    RSSChannel *c = [[[self class] alloc] init];
+    [c setTitle:[self title]];
+    [c setInfoString:[self infoString]];
+    c->items = [items mutableCopy];
+    return c;
+}
 @end

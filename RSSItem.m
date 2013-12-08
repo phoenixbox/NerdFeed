@@ -10,9 +10,13 @@
 
 @implementation RSSItem
 
-@synthesize title, link, parentParserDelegate;
+@synthesize title, link, parentParserDelegate, publicationDate;
 
--(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
+-(void)parser:(NSXMLParser *)parser
+    didStartElement:(NSString *)elementName
+       namespaceURI:(NSString *)namespaceURI
+      qualifiedName:(NSString *)qualifiedName
+         attributes:(NSDictionary *)attributeDict
 {
     NSLog(@"\t\t%@ found a %@ element", self, elementName);
           
@@ -22,6 +26,9 @@
     } else if ([elementName isEqual:@"link"]){
         currentString = [[NSMutableString alloc]init];
         [self setLink:currentString];
+    } else if ([elementName isEqualToString:@"pubDate"]){
+        // Create the string but not assigned to the ivar yet!
+        currentString = [[NSMutableString alloc]init];
     }
 }
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)str
@@ -33,6 +40,15 @@ didEndElement:(NSString *)elementName
  namespaceURI:(NSString *)namespaceURI
 qualifiedName:(NSString *)qName
 {
+    // If the pubDate ends, use a date formatter to turn it into an NSDate
+    if ([elementName isEqualToString:@"pubDate"]) {
+        static NSDateFormatter *dateFormatter = nil;
+        if (!dateFormatter) {
+            dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
+        }
+        [self setPublicationDate:[dateFormatter dateFromString:currentString]];
+    }
     currentString = nil;
     
     if([elementName isEqual:@"item"]||[elementName isEqual:@"entry"]){
@@ -56,6 +72,7 @@ qualifiedName:(NSString *)qName
 {
     [aCoder encodeObject:title forKey:@"title"];
     [aCoder encodeObject:link forKey:@"link"];
+    [aCoder encodeObject:publicationDate forKey:@"publicationDate"];
 }
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -63,7 +80,16 @@ qualifiedName:(NSString *)qName
     if(self){
         [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
         [self setLink:[aDecoder decodeObjectForKey:@"link"]];
+        [self setPublicationDate:[aDecoder decodeObjectForKey:@"publicationDate"]];
     }
     return self;
+}
+- (BOOL)isEqual:(id)object
+{
+    // Make sure we are comparing an RSSItem!
+    if (![object isKindOfClass:[RSSItem class]])
+        return NO;
+    // Now only return YES if the links are equal.
+    return [[self link] isEqual:[object link]];
 }
 @end

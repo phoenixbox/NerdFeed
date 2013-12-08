@@ -161,11 +161,34 @@
     };
     
     // Initiate the request based on RSSType
-    if(rssType == ListViewControllerRSSTypeBNR){
-        [[BNRFeedStore sharedStore] fetchRSSFeedWithCompletion:completionBlock];
-    } else if (rssType == ListViewControllerRSSTypeApple){
-        [[BNRFeedStore sharedStore] fetchTopSongs:20 withCompletion:completionBlock];
-    }
+    if (rssType == ListViewControllerRSSTypeBNR) {
+        channel = [[BNRFeedStore sharedStore] fetchRSSFeedWithCompletion: ^(RSSChannel *obj, NSError *err) {
+            // Replace the activity indicator.
+            [[self navigationItem] setTitleView:currentTitleView];
+            if (!err) {
+                // How many items are there currently?
+                int currentItemCount = [[channel items] count];
+                // Set our channel to the merged one
+                channel = obj;
+                // How many items are there now?
+                int newItemCount = [[channel items] count];
+                // For each new item, insert a new row. The data source
+                // will take care of the rest.
+                int itemDelta = newItemCount - currentItemCount;
+                if (itemDelta > 0) {
+                    NSMutableArray *rows = [NSMutableArray array];
+                    for (int i = 0; i < itemDelta; i++) {
+                        NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+                        [rows addObject:ip];
+                        }
+                    [[self tableView] insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationTop];
+                }
+            }
+        }];
+    
+        [[self tableView] reloadData];
+    } else if (rssType == ListViewControllerRSSTypeApple)
+        [[BNRFeedStore sharedStore] fetchTopSongs:10 withCompletion:completionBlock];
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)io
 {

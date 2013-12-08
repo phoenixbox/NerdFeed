@@ -21,10 +21,10 @@
     return feedStore;
 }
 
--(void)fetchRSSFeedWithCompletion:(void(^)(RSSChannel *obj, NSError *err))block
+- (RSSChannel *)fetchRSSFeedWithCompletion:(void (^)(RSSChannel *obj, NSError *err))block;
 {
     NSString *requestString = @"http://forums.bignerdranch.com/"
-    @"smartfeed.php?limit=1_DAY&sort_by=standard"
+    @"smartfeed.php?limit=7_DAY&sort_by=standard"
     @"&feed_type=RSS2.0&feed_style=COMPACT";
     
     NSURL *url = [NSURL URLWithString:requestString];
@@ -36,16 +36,39 @@
     // Create the connection actor that transfers data from the server
     BNRConnection *connection = [[BNRConnection alloc]initWithRequest:req];
     
-    // When the connnection completes - call the controller block
-    [connection setCompletionBlock:block];
+    NSString *cachePath =
+    [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
+                                         NSUserDomainMask,
+                                         YES) objectAtIndex:0];
+    cachePath = [cachePath stringByAppendingPathComponent:@"nerd.archive"];
+    // Load the cached channel
+    RSSChannel *cachedChannel =
+    [NSKeyedUnarchiver unarchiveObjectWithFile:cachePath];
     
+    // If one hasn't already been cached, create a blank one to fill up
+    if (!cachedChannel)
+        cachedChannel = [[RSSChannel alloc] init];
+    
+    RSSChannel *channelCopy = [cachedChannel copy];
+    
+    [connection setCompletionBlock:^(RSSChannel *obj, NSError *err) {
+        // This is the store's callback code
+        if (!err) {
+            [cachedChannel addItemsFromChannel:obj];
+            [NSKeyedArchiver archiveRootObject:channelCopy
+                                        toFile:cachePath];
+        }
+        // This is the controller's callback code
+        block(channelCopy, err);
+    }];
     // Let the empty channel parse the returning data from the web service
     [connection setXmlRootObject:channel];
     
     // Begin the connection
     [connection start];
+    // Return the RSSChannel type
+    return cachedChannel;
 }
-
 -(void)fetchTopSongs:(int)count withCompletion:(void (^)(RSSChannel *, NSError *))block
 {
     // Construct the cache path
@@ -68,11 +91,16 @@
             RSSChannel *cachedChannel = [NSKeyedUnarchiver
                                          unarchiveObjectWithFile:cachePath];
             if (cachedChannel) {
-                // Execute the controller's completion block to reload its table
-                block(cachedChannel, nil);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    // Execute the controller's completion block to reload its table
+                    block(cachedChannel, nil);
+                }];
+    
                 // Don't need to make the request, just get out of this method
-                return; }
-        } }
+                return;
+            }
+        }
+    }
     
     // Prepare a request URL incl. controller argument passed over
     NSString *requestString = [NSString stringWithFormat:@"http://itunes.apple.com/us/rss/topsongs/limit=%d/json", count];
