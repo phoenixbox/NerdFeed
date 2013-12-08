@@ -21,52 +21,51 @@
     return feedStore;
 }
 
-- (RSSChannel *)fetchRSSFeedWithCompletion:(void (^)(RSSChannel *obj, NSError *err))block;
+- (RSSChannel *)fetchRSSFeedWithCompletion:(void (^)(RSSChannel *obj, NSError *err))block
 {
-    NSString *requestString = @"http://forums.bignerdranch.com/"
-    @"smartfeed.php?limit=7_DAY&sort_by=standard"
-    @"&feed_type=RSS2.0&feed_style=COMPACT";
+    NSURL *url = [NSURL URLWithString:@"http://forums.bignerdranch.com/"
+                  @"smartfeed.php?limit=1_DAY&sort_by=standard"
+                  @"&feed_type=RSS2.0&feed_style=COMPACT"];
     
-    NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
     
-    // Create the empty channel to pass to connection
-    RSSChannel *channel = [[RSSChannel alloc]init];
+    // Create an empty channel
+    RSSChannel *channel = [[RSSChannel alloc] init];
     
-    // Create the connection actor that transfers data from the server
-    BNRConnection *connection = [[BNRConnection alloc]initWithRequest:req];
+    // Create a connection "actor" object that will transfer data from the server
+    BNRConnection *connection = [[BNRConnection alloc] initWithRequest:req];
     
+    // When the connection completes, this block from the controller will be executed.
     NSString *cachePath =
     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
                                          NSUserDomainMask,
                                          YES) objectAtIndex:0];
-    cachePath = [cachePath stringByAppendingPathComponent:@"nerd.archive"];
-    // Load the cached channel
-    RSSChannel *cachedChannel =
-    [NSKeyedUnarchiver unarchiveObjectWithFile:cachePath];
     
-    // If one hasn't already been cached, create a blank one to fill up
-    if (!cachedChannel)
+    cachePath = [cachePath stringByAppendingPathComponent:@"nerd.archive"];
+    
+    // Load the cached channel, or create an empty one to fill up
+    RSSChannel *cachedChannel = [NSKeyedUnarchiver unarchiveObjectWithFile:cachePath];
+    if(!cachedChannel)
         cachedChannel = [[RSSChannel alloc] init];
     
     RSSChannel *channelCopy = [cachedChannel copy];
     
+    // When the connection completes, this block from the controller will be executed.
     [connection setCompletionBlock:^(RSSChannel *obj, NSError *err) {
-        // This is the store's callback code
-        if (!err) {
-            [cachedChannel addItemsFromChannel:obj];
-            [NSKeyedArchiver archiveRootObject:channelCopy
-                                        toFile:cachePath];
+        if(!err) {
+            [channelCopy addItemsFromChannel:obj];
+            [NSKeyedArchiver archiveRootObject:channelCopy toFile:cachePath];
         }
-        // This is the controller's callback code
+        
         block(channelCopy, err);
     }];
+    
     // Let the empty channel parse the returning data from the web service
     [connection setXmlRootObject:channel];
     
     // Begin the connection
     [connection start];
-    // Return the RSSChannel type
+    
     return cachedChannel;
 }
 -(void)fetchTopSongs:(int)count withCompletion:(void (^)(RSSChannel *, NSError *))block
