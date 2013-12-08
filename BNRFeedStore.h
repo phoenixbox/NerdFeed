@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
+// Forward declare the classes as promises
 @class RSSChannel;
+@class RSSItem;
 
 @interface BNRFeedStore : NSObject
+{
+    NSManagedObjectContext *context;
+    NSManagedObjectContext *model;
+}
 
 @property (nonatomic, strong) NSDate *topSongsCacheDate;
 
@@ -19,5 +26,8 @@
 -(void)fetchTopSongs:(int)count withCompletion:(void(^)(RSSChannel *obj, NSError *err))block;
 
 - (RSSChannel *)fetchRSSFeedWithCompletion:(void (^)(RSSChannel *obj, NSError *err))block;
+
+-(void)markItemAsRead:(RSSItem *)item;
+-(BOOL)hasItemBeenRead:(RSSItem *)item;
 
 @end

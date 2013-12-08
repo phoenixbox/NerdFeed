@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0FB0941854FF7A00B249CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB0FB0931854FF7A00B249CB /* CoreData.framework */; };
+		CB0FB0971854FFA600B249CB /* Nerdfeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */; };
 		CB70A109184D92FF00579A61 /* WSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A108184D92FF00579A61 /* WSLog.m */; };
 		CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A10B184D93AC00579A61 /* WebViewController.m */; };
 		CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A12E184E415E00579A61 /* ChannelViewController.m */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB0FB0931854FF7A00B249CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CB0FB0961854FFA600B249CB /* Nerdfeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nerdfeed.xcdatamodel; sourceTree = "<group>"; };
 		CB70A107184D92FF00579A61 /* WSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLog.h; sourceTree = "<group>"; };
 		CB70A108184D92FF00579A61 /* WSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLog.m; sourceTree = "<group>"; };
 		CB70A10A184D93AC00579A61 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0FB0941854FF7A00B249CB /* CoreData.framework in Frameworks */,
 				CB997C9A184BE458006824AE /* CoreGraphics.framework in Frameworks */,
 				CB997C9C184BE458006824AE /* UIKit.framework in Frameworks */,
 				CB997C98184BE458006824AE /* Foundation.framework in Frameworks */,
@@ -102,6 +107,7 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
+				CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */,
 				CBBA24051853A4B500DB88E8 /* JSONSerializable.h */,
 				CBBA2401185362FF00DB88E8 /* Models */,
 				CBBA2400185362F100DB88E8 /* Stores */,
@@ -125,6 +131,7 @@
 		CB997C96184BE458006824AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB0FB0931854FF7A00B249CB /* CoreData.framework */,
 				CB997C97184BE458006824AE /* Foundation.framework */,
 				CB997C99184BE458006824AE /* CoreGraphics.framework */,
 				CB997C9B184BE458006824AE /* UIKit.framework */,
@@ -307,6 +314,7 @@
 			files = (
 				CB70A109184D92FF00579A61 /* WSLog.m in Sources */,
 				CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */,
+				CB0FB0971854FFA600B249CB /* Nerdfeed.xcdatamodeld in Sources */,
 				CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */,
 				CB997CCC184C0220006824AE /* RSSChannel.m in Sources */,
 				CBBA24041853717300DB88E8 /* BNRConnection.m in Sources */,
@@ -531,6 +539,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CB0FB0961854FFA600B249CB /* Nerdfeed.xcdatamodel */,
+			);
+			currentVersion = CB0FB0961854FFA600B249CB /* Nerdfeed.xcdatamodel */;
+			path = Nerdfeed.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CB997C8C184BE458006824AE /* Project object */;
 }

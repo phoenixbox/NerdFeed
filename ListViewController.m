@@ -95,6 +95,13 @@
     }
     RSSItem *item = [[channel items] objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:[item title]];
+    
+    if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    } else {
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+    }
+    
     return cell;
 }
 
@@ -117,6 +124,11 @@
     
     // Grab the selected RSSItem from the channels items
     RSSItem *entry = [[channel items]objectAtIndex:[indexPath row]];
+    
+    [[BNRFeedStore sharedStore]markItemAsRead:entry];
+    
+    // Add checkmark to the row
+    [[[self tableView]cellForRowAtIndexPath:indexPath]setAccessoryType:UITableViewCellAccessoryCheckmark];
     
     // Construct the URL with the link string attribute of the item
     NSURL *url = [NSURL URLWithString:[entry link]];
