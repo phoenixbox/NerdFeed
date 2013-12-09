@@ -41,7 +41,7 @@
         //When we find an item element - create an instance of RSSItem
         RSSItem *entry = [[RSSItem alloc] init];
         
-        // Set the paren as ourselves so we can regain control of the parser
+        // Set the parent as ourselves so we can regain control of the parser
         [entry setParentParserDelegate:self];
         
         // Turn the parser to the RSSItem
