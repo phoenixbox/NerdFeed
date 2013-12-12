@@ -41,7 +41,7 @@
         //When we find an item element - create an instance of RSSItem
         RSSItem *entry = [[RSSItem alloc] init];
         
-        // Set the parent as ourselves so we can regain control of the parser
+        // Set the paren as ourselves so we can regain control of the parser
         [entry setParentParserDelegate:self];
         
         // Turn the parser to the RSSItem
@@ -153,12 +153,14 @@ qualifiedName:(NSString *)qName
         return [[obj2 publicationDate] compare:[obj1 publicationDate]];
     }];
 }
-- (id)copyWithZone:(NSZone *)zone
+-(id)copyWithZone:(NSZone *)zone
 {
-    RSSChannel *c = [[[self class] alloc] init];
+    RSSChannel *c = [[[self class] alloc]init];
+    
     [c setTitle:[self title]];
     [c setInfoString:[self infoString]];
     c->items = [items mutableCopy];
+    
     return c;
 }
 @end

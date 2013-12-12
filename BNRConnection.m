@@ -49,7 +49,8 @@ static NSMutableArray *sharedConnectionList = nil;
         NSXMLParser *parser = [[NSXMLParser alloc] initWithData:container];
         [parser setDelegate:[self xmlRootObject]];
         [parser parse];
-        rootObject = [self xmlRootObject]; } else if ([self jsonRootObject]) {
+        rootObject = [self xmlRootObject];
+    } else if ([self jsonRootObject]) {
             // Turn JSON data into basic model objects
             NSDictionary *d = [NSJSONSerialization JSONObjectWithData:container
                                                               options:0

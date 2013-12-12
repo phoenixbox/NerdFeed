@@ -18,8 +18,8 @@
       qualifiedName:(NSString *)qualifiedName
          attributes:(NSDictionary *)attributeDict
 {
-    NSLog(@"\t\t%@ found a %@ element", self, elementName);
-          
+    NSLog(@"\t\t%@ found a XXX %@ element", self, elementName);
+
     if([elementName isEqual:@"title"]){
         currentString = [[NSMutableString alloc]init];
         [self setTitle:currentString];
@@ -28,6 +28,8 @@
         [self setLink:currentString];
     } else if ([elementName isEqualToString:@"pubDate"]){
         // Create the string but not assigned to the ivar yet!
+        currentString = [[NSMutableString alloc]init];
+    } else if ([elementName isEqualToString:@"description"]){
         currentString = [[NSMutableString alloc]init];
     }
 }
@@ -58,8 +60,10 @@ qualifiedName:(NSString *)qName
 }
 - (void)readFromJSONDictionary:(NSDictionary *)d
 {
+    // Name of the song
     [self setTitle:[[d objectForKey:@"title"] objectForKey:@"label"]];
-    // Inside each entry is an array of links, each has an attribute object
+    
+    // Link to the
     NSArray *links = [d objectForKey:@"link"];
     if ([links count] > 1) {
         NSDictionary *sampleDict = [[links objectAtIndex:1]
@@ -67,11 +71,26 @@ qualifiedName:(NSString *)qName
         // The href of an attribute object is the URL for the sample audio file
         [self setLink:[sampleDict objectForKey:@"href"]];
     }
+    // Album Collection Name
+    NSString *collection = [[[d objectForKey:@"im:collection" ] objectForKey:@"im:name"] objectForKey:@"label"];
+    [self setCollection:collection];
+    
+    // Album Image Art
+    NSArray *imageLinks = [d objectForKey:@"im:image"];
+    if ([imageLinks count] > 1){
+        NSURL *imageURL = [[links objectAtIndex:0] objectForKey:@"label"];
+        [self setImage:imageURL];
+    }
+    // Song Price
+    NSString *price = [[d objectForKey:@"im:price"] objectForKey:@"label"];
+    [self setPrice:price];
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:title forKey:@"title"];
     [aCoder encodeObject:link forKey:@"link"];
+    [aCoder encodeObject:_collection forKey:@"collection"];
+    [aCoder encodeObject:_price forKey:@"price"];
     [aCoder encodeObject:publicationDate forKey:@"publicationDate"];
 }
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -80,6 +99,8 @@ qualifiedName:(NSString *)qName
     if(self){
         [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
         [self setLink:[aDecoder decodeObjectForKey:@"link"]];
+        [self setCollection:[aDecoder decodeObjectForKey:@"collection"]];
+        [self setPrice:[aDecoder decodeObjectForKey:@"price"]];
         [self setPublicationDate:[aDecoder decodeObjectForKey:@"publicationDate"]];
     }
     return self;

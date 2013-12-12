@@ -13,6 +13,7 @@
 #import "WebViewController.h"
 #import "ChannelViewController.h"
 #import "BNRFeedStore.h"
+#import "DetailCell.h"
 
 @implementation ListViewController
 @synthesize webViewController;
@@ -42,7 +43,15 @@
     }
     return self;
 }
-
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    if(rssType == ListViewControllerRSSTypeBNR){
+        UINib *nib = [UINib nibWithNibName:@"DetailCell" bundle:nil];
+        
+        [[self tableView] registerNib:nib forCellReuseIdentifier:@"DetailCell"];
+    }
+}
 - (void)changeType:(id)sender
 {
     rssType = [sender selectedSegmentIndex];
@@ -87,22 +96,43 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView
-                             dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:@"UITableViewCell"];
-    }
     RSSItem *item = [[channel items] objectAtIndex:[indexPath row]];
-    [[cell textLabel] setText:[item title]];
-    
-    if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    if(rssType == ListViewControllerRSSTypeBNR){
+        NSLog(@"Type is: BNR");
+        UITableViewCell *cell = [tableView
+                                 dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:@"UITableViewCell"];
+        }
+        
+        
+        [[cell textLabel] setText:[item title]];
+        
+        if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        
+        return cell;
     } else {
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
-    }
-    
-    return cell;
+        NSLog(@"Type is: Apple");
+        // Dequeue the Detail Cell
+        DetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailCell"];
+        // Configure the Detail Cell
+        [[cell titleLabel] setText:[item title]];
+        [[cell collectionLabel] setText:[item collection]];
+        [[cell priceLabel] setText:[item price]];
+        
+        if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        
+        return cell;
+    };
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

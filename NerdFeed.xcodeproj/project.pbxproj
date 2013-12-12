@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB0FB0941854FF7A00B249CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB0FB0931854FF7A00B249CB /* CoreData.framework */; };
 		CB0FB0971854FFA600B249CB /* Nerdfeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */; };
+		CB0FB0DB1858BCCA00B249CB /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0FB0DA1858BCCA00B249CB /* DetailCell.xib */; };
 		CB70A109184D92FF00579A61 /* WSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A108184D92FF00579A61 /* WSLog.m */; };
 		CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A10B184D93AC00579A61 /* WebViewController.m */; };
 		CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB70A12E184E415E00579A61 /* ChannelViewController.m */; };
@@ -27,6 +28,7 @@
 		CB997CC8184BEB25006824AE /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CC7184BEB25006824AE /* ListViewController.m */; };
 		CB997CCC184C0220006824AE /* RSSChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCB184C0220006824AE /* RSSChannel.m */; };
 		CB997CCF184C3D10006824AE /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCE184C3D10006824AE /* RSSItem.m */; };
+		CB9DCF0218596625002B2A89 /* DetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9DCF0118596625002B2A89 /* DetailCell.m */; };
 		CBBA23FF185362E600DB88E8 /* BNRFeedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA23FE185362E600DB88E8 /* BNRFeedStore.m */; };
 		CBBA24041853717300DB88E8 /* BNRConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA24031853717300DB88E8 /* BNRConnection.m */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,7 @@
 /* Begin PBXFileReference section */
 		CB0FB0931854FF7A00B249CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB0FB0961854FFA600B249CB /* Nerdfeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nerdfeed.xcdatamodel; sourceTree = "<group>"; };
+		CB0FB0DA1858BCCA00B249CB /* DetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCell.xib; sourceTree = "<group>"; };
 		CB70A107184D92FF00579A61 /* WSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLog.h; sourceTree = "<group>"; };
 		CB70A108184D92FF00579A61 /* WSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLog.m; sourceTree = "<group>"; };
 		CB70A10A184D93AC00579A61 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 		CB997CCB184C0220006824AE /* RSSChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannel.m; sourceTree = "<group>"; };
 		CB997CCD184C3D10006824AE /* RSSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItem.h; sourceTree = "<group>"; };
 		CB997CCE184C3D10006824AE /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
+		CB9DCF0018596625002B2A89 /* DetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCell.h; sourceTree = "<group>"; };
+		CB9DCF0118596625002B2A89 /* DetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCell.m; sourceTree = "<group>"; };
 		CBBA23FD185362E600DB88E8 /* BNRFeedStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRFeedStore.h; sourceTree = "<group>"; };
 		CBBA23FE185362E600DB88E8 /* BNRFeedStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRFeedStore.m; sourceTree = "<group>"; };
 		CBBA24021853717300DB88E8 /* BNRConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRConnection.h; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
+				CB0FB0DA1858BCCA00B249CB /* DetailCell.xib */,
 				CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */,
 				CBBA24051853A4B500DB88E8 /* JSONSerializable.h */,
 				CBBA2401185362FF00DB88E8 /* Models */,
@@ -212,6 +218,8 @@
 				CB997CCA184C0220006824AE /* RSSChannel.h */,
 				CB997CCB184C0220006824AE /* RSSChannel.m */,
 				CB997CCD184C3D10006824AE /* RSSItem.h */,
+				CB9DCF0018596625002B2A89 /* DetailCell.h */,
+				CB9DCF0118596625002B2A89 /* DetailCell.m */,
 				CB997CCE184C3D10006824AE /* RSSItem.m */,
 			);
 			name = Models;
@@ -294,6 +302,7 @@
 			files = (
 				CB997CA2184BE458006824AE /* InfoPlist.strings in Resources */,
 				CB997CAA184BE458006824AE /* Images.xcassets in Resources */,
+				CB0FB0DB1858BCCA00B249CB /* DetailCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +323,7 @@
 			files = (
 				CB70A109184D92FF00579A61 /* WSLog.m in Sources */,
 				CB70A10C184D93AC00579A61 /* WebViewController.m in Sources */,
+				CB9DCF0218596625002B2A89 /* DetailCell.m in Sources */,
 				CB0FB0971854FFA600B249CB /* Nerdfeed.xcdatamodeld in Sources */,
 				CB70A12F184E415E00579A61 /* ChannelViewController.m in Sources */,
 				CB997CCC184C0220006824AE /* RSSChannel.m in Sources */,
@@ -447,8 +457,8 @@
 				GCC_PREFIX_HEADER = "NerdFeed/NerdFeed-Prefix.pch";
 				INFOPLIST_FILE = "NerdFeed/NerdFeed-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F09FC25-F943-44B0-9374-68ADC2133974";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "B49AD0DF-7D0B-4209-BFDA-E519E319E683";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -462,8 +472,8 @@
 				GCC_PREFIX_HEADER = "NerdFeed/NerdFeed-Prefix.pch";
 				INFOPLIST_FILE = "NerdFeed/NerdFeed-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F09FC25-F943-44B0-9374-68ADC2133974";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "B49AD0DF-7D0B-4209-BFDA-E519E319E683";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
