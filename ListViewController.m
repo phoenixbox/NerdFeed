@@ -15,6 +15,10 @@
 #import "BNRFeedStore.h"
 #import "DetailCell.h"
 
+enum {
+    kCustomCellTitleLabel = 1000
+};
+
 @implementation ListViewController
 @synthesize webViewController;
 
@@ -97,17 +101,37 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RSSItem *item = [[channel items] objectAtIndex:[indexPath row]];
+    
     if(rssType == ListViewControllerRSSTypeBNR){
         NSLog(@"Type is: BNR");
-        UITableViewCell *cell = [tableView
-                                 dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+        
+        static NSString *cellIdentifier = @"cellIdentifier";
+        
+        static const int kLabel = 1010; // constant for the label tag
+        static const int kImage = 1020; // constant for the imageView tag
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:@"UITableViewCell"];
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            
+            CGRect myImageFrame = CGRectMake(10, 10, 50, 25);
+            UIImageView *myImageView = [[UIImageView alloc] initWithFrame:myImageFrame];
+            myImageView.tag = kLabel;
+            [cell.contentView addSubview:myImageView];
+            
+            UILabel *myLabel = [[UILabel alloc] init];
+            myLabel.frame = CGRectMake(75, 10, 200, 25);
+            myLabel.tag = kImage;
+            [cell.contentView addSubview:myLabel];
         }
         
+        UIImageView *myImageView = (UIImageView *)[cell viewWithTag:kLabel];
+        [myImageView setImage:[UIImage imageNamed:@"cellimage.png"]];
+        UILabel *myLabel = (UILabel *)[cell viewWithTag:kImage];
+        myLabel.text = [item title];
         
-        [[cell textLabel] setText:[item title]];
         
         if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
