@@ -29,6 +29,7 @@
 		CB997CCC184C0220006824AE /* RSSChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCB184C0220006824AE /* RSSChannel.m */; };
 		CB997CCF184C3D10006824AE /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997CCE184C3D10006824AE /* RSSItem.m */; };
 		CB9DCF0218596625002B2A89 /* DetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9DCF0118596625002B2A89 /* DetailCell.m */; };
+		CB9DCF08185980AA002B2A89 /* collection_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB9DCF07185980AA002B2A89 /* collection_image.jpg */; };
 		CBBA23FF185362E600DB88E8 /* BNRFeedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA23FE185362E600DB88E8 /* BNRFeedStore.m */; };
 		CBBA24041853717300DB88E8 /* BNRConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA24031853717300DB88E8 /* BNRConnection.m */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		CB997CCE184C3D10006824AE /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
 		CB9DCF0018596625002B2A89 /* DetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCell.h; sourceTree = "<group>"; };
 		CB9DCF0118596625002B2A89 /* DetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCell.m; sourceTree = "<group>"; };
+		CB9DCF07185980AA002B2A89 /* collection_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = collection_image.jpg; path = ../../../collection_image.jpg; sourceTree = "<group>"; };
 		CBBA23FD185362E600DB88E8 /* BNRFeedStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRFeedStore.h; sourceTree = "<group>"; };
 		CBBA23FE185362E600DB88E8 /* BNRFeedStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRFeedStore.m; sourceTree = "<group>"; };
 		CBBA24021853717300DB88E8 /* BNRConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRConnection.h; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		CB997C8B184BE458006824AE = {
 			isa = PBXGroup;
 			children = (
+				CB9DCF061859809D002B2A89 /* Assets */,
 				CB0FB0DA1858BCCA00B249CB /* DetailCell.xib */,
 				CB0FB0951854FFA600B249CB /* Nerdfeed.xcdatamodeld */,
 				CBBA24051853A4B500DB88E8 /* JSONSerializable.h */,
@@ -199,6 +202,14 @@
 				CB997CC7184BEB25006824AE /* ListViewController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CB9DCF061859809D002B2A89 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CB9DCF07185980AA002B2A89 /* collection_image.jpg */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		CBBA2400185362F100DB88E8 /* Stores */ = {
@@ -301,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB997CA2184BE458006824AE /* InfoPlist.strings in Resources */,
+				CB9DCF08185980AA002B2A89 /* collection_image.jpg in Resources */,
 				CB997CAA184BE458006824AE /* Images.xcassets in Resources */,
 				CB0FB0DB1858BCCA00B249CB /* DetailCell.xib in Resources */,
 			);

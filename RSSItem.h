@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString *link;
 
 @property (nonatomic, strong) NSString *collection;
-@property (nonatomic, strong) NSURL *image;
+@property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) NSString *price;
 
 @property (nonatomic, strong) NSDate *publicationDate;

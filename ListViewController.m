@@ -125,6 +125,8 @@
         [[cell collectionLabel] setText:[item collection]];
         [[cell priceLabel] setText:[item price]];
         
+        [[cell imageView] setImage:[UIImage imageNamed:@"collection_image.jpg"]];
+        
         if([[BNRFeedStore sharedStore] hasItemBeenRead:item]){
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         } else {

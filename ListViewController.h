@@ -23,6 +23,7 @@ typedef enum {
 }
 
 @property (nonatomic, strong) WebViewController * webViewController;
+@property (retain, nonatomic) UIImage *mask;
 
 -(void)fetchEntries;
 
